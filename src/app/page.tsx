@@ -7,9 +7,38 @@ import { Button } from '@mui/material';
 export default function HomePage() {
   const [jobUrl, setJobUrl] = useState('');
 
-  const handleFetchJob = () => {
+  const handleFetchJob = async () => {
     console.log('Fetching job info for:', jobUrl);
+
+    try {
+      const res = await fetch('/api/fetch-job', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: jobUrl }),
+      });
+
+      const data = await res.json();
+      const html = data.html;
+
+      if (!html) {
+        console.error('No HTML returned');
+        return;
+      }
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const title = doc.querySelector('title')?.innerText || 'No title found';
+      const metaDesc = doc.querySelector('meta[name="description"]')?.content || 'No description';
+      const company = doc.querySelector('meta[property="og:site_name"]')?.content || 'Unknown company';
+
+      console.log({ title, metaDesc, company });
+
+    } catch (error) {
+      console.error('Error fetching job data:', error);
+    }
   };
+
 
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-900 text-black dark:text-white flex flex-col items-center justify-center p-6">
