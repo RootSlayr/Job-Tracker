@@ -6,8 +6,7 @@ import { Button } from '@mui/material';
 
 export default function HomePage() {
   const [jobUrl, setJobUrl] = useState('');
-  const [jobInfo, setJobInfo] = useState(null);
-  // const [pageText, setPageText] = useState('');
+  const [pageText, setPageText] = useState(null);
 
 
   const handleFetchJob = async () => {
@@ -31,13 +30,7 @@ export default function HomePage() {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       const textContent = doc.body.textContent || '';
-      // setPageText(doc.body.textContent);
-      const title = doc.querySelector('title')?.innerText || 'No title found';
-      const metaDesc = doc.querySelector('meta[name="description"]')?.content || 'No description';
-      const company = doc.querySelector('meta[property="og:site_name"]')?.content || 'Unknown company';
 
-      console.log({ title, metaDesc, company });
-      setJobInfo({ title, metaDesc, company });
 
       console.log(textContent);
 
@@ -49,6 +42,7 @@ export default function HomePage() {
 
       const parsed = await parse.json();
       console.log(parsed);
+      setPageText(parsed);
 
 
     } catch (error) {
@@ -83,15 +77,54 @@ export default function HomePage() {
           </Button>
         </form>
       </div>
-      {jobInfo && (
+      {pageText && (
         <div className="mt-6 p-4 bg-zinc-100 dark:bg-zinc-800 rounded shadow">
-          <h2 className="text-xl font-semibold mb-2">{jobInfo.title}</h2>
+          <h2 className="text-xl font-semibold mb-2">{pageText.title}</h2>
+
           <p className="text-sm mb-1 text-gray-600 dark:text-gray-300">
-            <span className="font-medium">Company:</span> {jobInfo.company}
+            <span className="font-medium">Company:</span> {pageText.company}
           </p>
-          <p className="text-sm text-gray-700 dark:text-gray-300">
-            <span className="font-medium">Summary:</span> {jobInfo.metaDesc}
+
+          <p className="text-sm mb-1 text-gray-600 dark:text-gray-300">
+            <span className="font-medium">Location:</span> {pageText.location}
           </p>
+
+          <div className="mt-3">
+            <p className="text-md font-medium mb-1">Job Description:</p>
+            <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">
+              {pageText.jobDescription}
+            </p>
+          </div>
+
+          <div className="mt-3">
+            <p className="text-md font-medium mb-1">Requirements:</p>
+            <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">
+              {pageText.requirements}
+            </p>
+
+
+            
+          </div>
+
+          <div className="mt-3">
+            <p className="text-md font-medium mb-1">Employment Type:</p>
+            <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">
+              {pageText.employmentType}
+            </p>
+          </div>
+
+          <div className="mt-3">
+            <p className="text-md font-medium mb-1">Technologies:</p>
+            <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">
+              {pageText.technologies.join('\n')}
+            </p>
+          </div>
+
+          {pageText.applicationDeadline && (
+            <p className="text-sm mt-3 text-gray-600 dark:text-gray-300">
+              <span className="font-medium">Deadline:</span> {pageText.applicationDeadline}
+            </p>
+          )}
 
           <div className="mt-4 flex gap-2">
             <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
