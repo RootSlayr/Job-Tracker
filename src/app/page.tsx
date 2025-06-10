@@ -48,6 +48,15 @@ export default function HomePage() {
     } catch (error) {
       console.error('Error fetching job data:', error);
     }
+
+    await fetch("/api/save-job", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        // userEmail: user.email, // from session if you're using auth
+        jobData: pageText
+      })
+    });
   };
 
 
@@ -103,7 +112,7 @@ export default function HomePage() {
             </p>
 
 
-            
+
           </div>
 
           <div className="mt-3">
