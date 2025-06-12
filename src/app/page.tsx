@@ -2,7 +2,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@mui/material';
 
 export default function HomePage() {
   const [jobUrl, setJobUrl] = useState('');
@@ -62,10 +61,10 @@ export default function HomePage() {
 
   // test push hehehehehe
 
-
-
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-900 text-black dark:text-white flex flex-col items-center justify-center p-6">
+
+    <div>
+      {/* <div className="min-h-screen bg-white dark:bg-zinc-900 text-black dark:text-white flex flex-col items-center justify-center p-6"> */}
       <div className="w-full max-w-md">
         <h1 className="text-3xl font-bold mb-6 text-center">Job Tracker</h1>
 
@@ -83,9 +82,13 @@ export default function HomePage() {
             className="w-full p-3 rounded border border-gray-300 dark:border-zinc-600 dark:bg-zinc-800 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
-          <Button type="submit" variant="contained" fullWidth>
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
             Fetch Job Info
-          </Button>
+          </button>
+
         </form>
       </div>
       {pageText && (
