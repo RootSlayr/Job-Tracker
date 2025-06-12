@@ -49,14 +49,15 @@ export default function HomePage() {
       console.error('Error fetching job data:', error);
     }
 
-    await fetch("/api/save-job", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        userEmail: "anirudh.chida",
-        jobData: pageText
-      })
-    });
+    // await fetch("/api/save-job", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     userEmail: "anirudh.chida",
+    //     jobData: pageText
+    //   })
+    // });
+
   };
 
   // test push hehehehehe

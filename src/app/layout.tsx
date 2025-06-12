@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import GooeyNav from "@/components/GooeyNav";
+import Navbar from "@/components/Navbar";
+
+const items = [
+  { href: "/", label: "Upload" },
+  { href: "/viewResult", label: "Recommendations" },
+  { href: "/trackAppl", label: "Job Tracker" },
+];
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +36,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Navbar />
+
         {children}
       </body>
     </html>
