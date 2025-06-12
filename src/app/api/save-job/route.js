@@ -1,27 +1,23 @@
-// pages/api/save-job.js
 import clientPromise from "./utility";
 
-export default async function handler(req, res) {
-    if (req.method !== "POST") {
-        return res.status(405).end();
-    }
-
+export async function POST(req) {
     try {
+        const body = await req.json();
+        const { jobData, userEmail } = body;
+
         const client = await clientPromise;
         const db = client.db("Oohaah");
         const collection = db.collection("jobs");
 
-        const { jobData, userEmail } = req.body;
-
         const result = await collection.insertOne({
             userEmail,
             jobData,
-            savedAt: new Date()
+            savedAt: new Date(),
         });
 
-        res.status(200).json({ message: "Saved", id: result.insertedId });
+        return new Response(JSON.stringify({ message: "Saved", id: result.insertedId }), { status: 200 });
     } catch (error) {
         console.error("Error saving to MongoDB:", error);
-        res.status(500).json({ message: "Failed to save" });
+        return new Response(JSON.stringify({ message: "Failed to save" }), { status: 500 });
     }
 }
