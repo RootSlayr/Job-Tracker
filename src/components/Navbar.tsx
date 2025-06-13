@@ -57,7 +57,7 @@ export default function Navbar() {
 
                     {/* Game Menu Navigation */}
                     <div className="flex items-center gap-1">
-                        {links.map(({ href, label, pixel }, index) => {
+                        {links.map(({ href, label, pixel }, /* index */) => {
                             const isActive = pathname === href;
                             return (
                                 <Link

@@ -5,10 +5,10 @@ import { usePageText } from '@/context/PagetextContent';
 
 export default function ViewResultPage() {
     const { pageText } = usePageText();
-    const [resumeFile, setResumeFile] = useState(null);
+    const [resumeFile, setResumeFile] = useState<File | null>(null);
 
-    const handleResumeUpload = (e) => {
-        const file = e.target.files[0];
+    const handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0] ?? null;
         setResumeFile(file);
     };
 

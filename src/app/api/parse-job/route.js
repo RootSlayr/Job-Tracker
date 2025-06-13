@@ -51,6 +51,7 @@ ${textContent}
         const data = JSON.parse(cleanedText);
         return new Response(JSON.stringify(data), { status: 200 });
     } catch (err) {
+        console.error("JSON parse error:", err);
         return new Response(JSON.stringify({ error: "Invalid JSON", raw: text }), { status: 500 });
     }
 }

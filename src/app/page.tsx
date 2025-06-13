@@ -7,10 +7,19 @@ import { useRouter } from 'next/navigation';
 
 
 export default function HomePage() {
-  const [jobUrl, setJobUrl] = useState('');
+  type ApplicationStatus =
+    | 'saved'
+    | 'applied'
+    | 'interview'
+    | 'offer'
+    | 'rejected'
+    | 'pending'
+    | null;          // allow null for the initial value
+
+
   // const [pageText, setPageText] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [applicationStatus, setApplicationStatus] = useState(null);
+  const [applicationStatus, setApplicationStatus] = useState<ApplicationStatus>(null);
   // const [exp, setExp] = useState(0);
   const [jobDescription, setJobDescription] = useState('');
 
@@ -37,7 +46,7 @@ export default function HomePage() {
     }
   };
 
-  const handleStatusUpdate = (status) => {
+  const handleStatusUpdate = (status: Exclude<ApplicationStatus, null>) => {
     setApplicationStatus(status);
     if (status === 'applied') {
       // setExp(prev => prev + 100); // Big EXP gain for completing quest!
@@ -264,7 +273,7 @@ export default function HomePage() {
                       boxShadow: 'inset -2px -2px 0px rgba(255, 0, 255, 0.3)'
                     }}>
                       <div className="flex flex-wrap gap-2">
-                        {pageText.technologies.map((tech, index) => (
+                        {pageText.technologies.map((tech: string, index: number) => (
                           <span
                             key={index}
                             className="px-2 py-1 bg-black border border-green-400 text-green-400 font-mono text-xs font-bold"
