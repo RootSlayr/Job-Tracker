@@ -30,6 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black dark:bg-zinc-900 dark:text-white`}
       >
         <Navbar />
+        {/* <GooeyNav /> */}
         <PageTextProvider>
           {children}
         </PageTextProvider>
