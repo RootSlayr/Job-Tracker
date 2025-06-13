@@ -1,33 +1,26 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
+import { usePageText } from '@/context/PagetextContent';
+import { useRouter } from 'next/navigation';
+
+
 
 export default function HomePage() {
   const [jobUrl, setJobUrl] = useState('');
-  const [pageText, setPageText] = useState(null);
+  // const [pageText, setPageText] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [applicationStatus, setApplicationStatus] = useState(null);
   // const [exp, setExp] = useState(0);
   const [jobDescription, setJobDescription] = useState('');
 
+  const { pageText, setPageText } = usePageText();
+  const router = useRouter();
+
 
   const handleFetchJob = async () => {
     setIsLoading(true);
     try {
-      // const res = await fetch('/api/fetch-job', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ url: jobUrl }),
-      // });
-
-      // const data = await res.json();
-      // const html = data.html;
-      // if (!html) return;
-
-      // const parser = new DOMParser();
-      // const doc = parser.parseFromString(html, 'text/html');
-      // const textContent = doc.body.textContent || '';
-
       const parse = await fetch("/api/parse-job", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -48,6 +41,8 @@ export default function HomePage() {
     setApplicationStatus(status);
     if (status === 'applied') {
       // setExp(prev => prev + 100); // Big EXP gain for completing quest!
+      // setPageText(pageText);
+      router.push('/viewResult');
     }
   };
 
