@@ -122,20 +122,143 @@ export default function ViewResultPage() {
             <h1 className="text-4xl font-bold mb-6 tracking-wider">Quest Details</h1>
 
             <section
-                className="mb-8 bg-black border-4 border-green-400 p-6 rounded-lg"
+                className="mb-8 bg-gradient-to-br from-gray-900 via-black to-gray-800 border-4 border-yellow-400 p-8 rounded-xl relative overflow-hidden group transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl"
                 style={{
-                    clipPath: 'polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px)',
-                    boxShadow: 'inset -4px -4px 0px rgba(0, 255, 0, 0.3), 0 0 20px rgba(0, 255, 0, 0.3)',
+                    clipPath: 'polygon(20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 20px)',
+                    boxShadow: `
+                    inset -6px -6px 0px rgba(251, 255, 0, 0.4),
+                    0 0 30px rgba(251, 255, 0, 0.6),
+                    0 0 60px rgba(251, 255, 0, 0.3),
+                    0 10px 25px rgba(0, 0, 0, 0.5)
+                    `,
                 }}
             >
-                <h2 className="text-2xl font-bold mb-2">{pageText.title}</h2>
-                <p><strong>Company:</strong> {pageText.company}</p>
-                <p><strong>Location:</strong> {pageText.location}</p>
-                {pageText.technologies && <p><strong>Skills:</strong> {pageText.technologies.join(", ")}</p>}
-                <div className="mt-4 whitespace-pre-wrap max-h-48 overflow-y-auto border border-green-400 p-2 bg-black rounded">
-                    {pageText.jobDescription || pageText.textContent || 'No description available.'}
+                {/* Animated background elements */}
+                <div className="absolute inset-0 opacity-10">
+                    <div className="absolute top-4 left-4 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                    <div className="absolute top-8 right-8 w-1 h-1 bg-green-400 rounded-full animate-ping"></div>
+                    <div className="absolute bottom-6 left-1/3 w-1.5 h-1.5 bg-fuchsia-400 rounded-full animate-pulse delay-300"></div>
+                    <div className="absolute bottom-4 right-1/4 w-1 h-1 bg-cyan-400 rounded-full animate-ping delay-700"></div>
                 </div>
+
+                {/* Glowing border animation */}
+                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                        background: 'linear-gradient(45deg, transparent, rgba(251, 255, 0, 0.1), transparent)',
+                        animation: 'borderGlow 3s ease-in-out infinite'
+                    }}></div>
+
+                {/* Header Section */}
+                <div className="relative z-10 mb-6">
+                    <h2 className="text-3xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-400 animate-pulse">
+                        {pageText.title}
+                    </h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span className="text-yellow-400 font-semibold">Company:</span>
+                            <span className="text-cyan-300 font-mono">{pageText.company}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-fuchsia-400 rounded-full animate-pulse delay-300"></div>
+                            <span className="text-yellow-400 font-semibold">Location:</span>
+                            <span className="text-cyan-300 font-mono">{pageText.location}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Skills Section */}
+                <div className="space-y-4 mb-6 relative z-10">
+                    <div className="flex items-center gap-3">
+                        <div className="font-mono text-fuchsia-400 text-xl font-bold tracking-wider flex items-center gap-2">
+                            <span className="text-green-400">{'>'}</span>
+                            <span className="animate-pulse">SKILLS</span>
+                            <span className="text-green-400 animate-pulse delay-500">{'_'}</span>
+                        </div>
+                    </div>
+
+                    <div
+                        className="bg-gradient-to-r from-gray-900 via-black to-gray-900 border-2 border-pink-400 p-6 rounded-lg relative overflow-hidden group/skills transition-all duration-300 hover:border-pink-300"
+                        style={{
+                            boxShadow: `
+                            inset -3px -3px 0px rgba(255, 0, 255, 0.4),
+                            inset 3px 3px 0px rgba(255, 0, 255, 0.1),
+                            0 0 20px rgba(255, 0, 255, 0.2)
+                            `
+                        }}
+                    >
+                        {/* Skill container background animation */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-pink-500/5 to-transparent translate-x-full group-hover/skills:translate-x-[-100%] transition-transform duration-1000"></div>
+
+                        <div className="flex flex-wrap gap-3 relative z-10">
+                            {pageText.technologies.map((tech: string, index: any) => (
+                                <span
+                                    key={index}
+                                    className="px-3 py-2 bg-black border border-green-400 text-green-400 font-mono text-sm font-bold rounded transition-all duration-300 hover:bg-green-400 hover:text-black hover:scale-105 hover:shadow-lg hover:shadow-green-400/50 cursor-pointer"
+                                    style={{
+                                        boxShadow: 'inset -2px -2px 0px rgba(0, 255, 0, 0.3)',
+                                        animation: `skillPulse 2s ease-in-out infinite ${index * 0.1}s`
+                                    }}
+                                >
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Description Section */}
+                <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-3">
+                        <div className="font-mono text-cyan-400 text-lg font-bold tracking-wider flex items-center gap-2">
+                            <span className="text-yellow-400">{'>'}</span>
+                            <span>DESCRIPTION</span>
+                            <span className="text-yellow-400 animate-pulse">{'_'}</span>
+                        </div>
+                    </div>
+
+                    <div
+                        className="whitespace-pre-wrap max-h-64 overflow-y-auto border-2 border-green-400 p-4 bg-gradient-to-br from-black via-gray-900 to-black rounded-lg text-green-300 font-mono text-sm leading-relaxed scrollbar-thin scrollbar-thumb-green-400 scrollbar-track-gray-800 transition-all duration-300 hover:border-green-300"
+                        style={{
+                            boxShadow: `
+                            inset -2px -2px 0px rgba(0, 255, 0, 0.3),
+                            inset 2px 2px 0px rgba(0, 255, 0, 0.1),
+                            0 0 15px rgba(0, 255, 0, 0.2)
+                            `
+                        }}
+                    >
+                        {pageText.jobDescription || pageText.textContent || 'No description available.'}
+                    </div>
+                </div>
+
+                <style jsx>{`
+                    @keyframes borderGlow {
+                    0%, 100% { transform: translateX(-100%); }
+                    50% { transform: translateX(100%); }
+                    }
+                    
+                    @keyframes skillPulse {
+                    0%, 100% { box-shadow: inset -2px -2px 0px rgba(0, 255, 0, 0.3); }
+                    50% { box-shadow: inset -2px -2px 0px rgba(0, 255, 0, 0.6), 0 0 10px rgba(0, 255, 0, 0.3); }
+                    }
+                    
+                    .scrollbar-thin::-webkit-scrollbar {
+                    width: 6px;
+                    }
+                    
+                    .scrollbar-thumb-green-400::-webkit-scrollbar-thumb {
+                    background-color: #4ade80;
+                    border-radius: 3px;
+                    }
+                    
+                    .scrollbar-track-gray-800::-webkit-scrollbar-track {
+                    background-color: #1f2937;
+                    }
+                `}
+                </style>
             </section>
+
 
             <section>
                 <h3 className="text-xl font-bold mb-4">Upload Your Resume</h3>
