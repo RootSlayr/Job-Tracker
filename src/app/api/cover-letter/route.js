@@ -7,9 +7,12 @@ export async function POST(req) {
     // console.log("Received request at /api/cover-letter");
     const { textContent } = await req.json();
     // console.log(textContent);
-    const { pageText, resumeText } = textContent;
+    let { pageText, resumeText } = textContent;
+    pageText = JSON.stringify(pageText);
 
-    console.log(pageText);
+    // console.log(pageText);
+    // // console.log(toString(pageText));
+    // console.log(JSON.stringify(pageText));
     // const { pageText } = usePageText();
     // const { resumeText } = useResumeText();
 
@@ -65,6 +68,8 @@ export async function POST(req) {
     Dont mention any explanations for or about the cover letter, just return the JSON object with the keys and values.
 
     Resume: ${resumeText} - This is the candidate's resume.`;
+
+    // console.log(prompt);
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
