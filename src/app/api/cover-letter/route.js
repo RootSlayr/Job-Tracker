@@ -1,7 +1,21 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+// import { useResumeText } from "@/context/ResumeTextContent";
+// import { usePageText } from "@/context/PageTextContent";
+
 
 export async function POST(req) {
+    // console.log("Received request at /api/cover-letter");
     const { textContent } = await req.json();
+    // console.log(textContent);
+    const { pageText, resumeText } = textContent;
+
+    console.log(pageText);
+    // const { pageText } = usePageText();
+    // const { resumeText } = useResumeText();
+
+    if (!pageText || !resumeText) {
+        return new Response(JSON.stringify({ error: "Missing pagetext or resumetext" }), { status: 400 })
+    }
 
     // console.log("Received textContent:", textContent);
 
@@ -15,17 +29,22 @@ export async function POST(req) {
     "emailVersion": "",      // Condensed version (150–200 words) for email body submissions
     "linkedInMessage": ""    // Brief outreach or referral message (75–100 words) for LinkedIn
     }
+    
+    Job Description: ${pageText} - This is the job description for the position the candidate is applying for.
+
     Writing Guidelines:
 
     Tone: Maintain a tone that is professional, confident, concise, and strategically aligned with the company culture (e.g., corporate, startup, creative, or mission-driven).
 
     Structure (Cover Letter):
 
-    Opening Hook: State the role, how the candidate found it, and lead with their strongest qualification or value.
+    Opening Hook: State the role , how the candidate found it, and lead with their strongest qualification or value. Use the Job description to identify key requirements and align the candidate’s skills.
 
     STAR Method Body: Include 1–2 accomplishments using the STAR method (Situation, Task, Action, Result), aligned directly with job requirements.
 
-    Company Fit: Reference specific company initiatives, values, industry challenges, or recent news; explain why the candidate is uniquely positioned to contribute.
+    Company Fit: Reference specific company initiatives, values, industry challenges, or recent news; explain why the candidate is uniquely positioned to contribute. 
+    
+    Make sure to include the projects mentioned in the resume if they are relevant
 
     Closing: Reaffirm the candidate’s fit, express enthusiasm, and include a confident call to action.
 
@@ -43,8 +62,9 @@ export async function POST(req) {
 
     Industry context (trends, pain points, opportunities)
 
-    Resume: ${textContent}
-    Job Description ${textContent}`;
+    Dont mention any explanations for or about the cover letter, just return the JSON object with the keys and values.
+
+    Resume: ${resumeText} - This is the candidate's resume.`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;

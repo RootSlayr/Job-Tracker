@@ -32,9 +32,9 @@ export default function RootLayout({
         <Navbar />
         {/* <GooeyNav /> */}
         <PageTextProvider>
-          {children}
+            {children}
         </PageTextProvider>
       </body>
-    </html>
+    </html >
   );
 }
