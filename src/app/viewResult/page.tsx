@@ -25,8 +25,11 @@ export default function ViewResultPage() {
                 const pdfjsLib = await import('pdfjs-dist');
 
                 // Use a known working version - 3.4.120 is stable
-                pdfjsLib.GlobalWorkerOptions.workerSrc =
-                    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+                // pdfjsLib.GlobalWorkerOptions.workerSrc =
+                //     // 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+                //     `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`;
+
+                pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.js';
 
                 setPdfLib(pdfjsLib);
             } catch (err) {

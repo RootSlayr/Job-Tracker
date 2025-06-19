@@ -79,7 +79,7 @@ export async function POST(req) {
         .replace(/```$/, "")
         .trim();
 
-    console.log(cleanedText);
+    // console.log(cleanedText);
 
     try {
         const data = JSON.parse(cleanedText);
