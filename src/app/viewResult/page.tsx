@@ -64,9 +64,9 @@ export default function ViewResultPage() {
 
             for (let i = 1; i <= numPages; i++) {
                 const page = await pdf.getPage(i);
-                const textContent = await page.getTextContent();
-                const pageText = textContent.items
-                    .map((item: any) => ('str' in item ? item.str : ''))
+                const textContent: TextContent = await page.getTextContent();
+                const pageText = (textContent.items as TextItem[])
+                    .map((item) => ('str' in item ? item.str : ''))
                     .join(' ')
                     .trim();
 
@@ -255,7 +255,7 @@ export default function ViewResultPage() {
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-pink-500/5 to-transparent translate-x-full group-hover/skills:translate-x-[-100%] transition-transform duration-1000"></div>
 
                             <div className="flex flex-wrap gap-3 relative z-10">
-                                {pageText.technologies.map((tech: string, index: any) => (
+                                {pageText.technologies.map((tech: string, index: number) => (
                                     <span
                                         key={index}
                                         className="px-3 py-2 bg-black border border-green-400 text-green-400 font-mono text-sm font-bold rounded transition-all duration-300 hover:bg-green-400 hover:text-black hover:scale-105 hover:shadow-lg hover:shadow-green-400/50 cursor-pointer"
@@ -417,7 +417,7 @@ export default function ViewResultPage() {
 
                             {/* Tab Navigation */}
                             <div className="flex border-b border-gray-700 mx-6 mt-4">
-                                {tabs.map((tab: any) => (
+                                {tabs.map(tab => (
                                     <button
                                         key={tab.id}
                                         onClick={() => setActiveTab(tab.id)}
