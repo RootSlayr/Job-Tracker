@@ -18,14 +18,14 @@ jobs:
     # ----- config git secret scanning -----
       - name: Set up environment variables
         run: |
-          echo "NEXT_PUBLIC_API_KEY=${{ secrets.GEMINI }}" >> $GITHUB_ENV
-          echo "DATABASE_URL=${{ secrets.MONGO_URL }}" >> $GITHUB_ENV
+          echo "GEMINI=${{ secrets.GEMINI }}" >> $GITHUB_ENV
+          echo "MONGO_URL=${{ secrets.MONGO_URL }}" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build the app
-        run: npm run dev
+        run: npm run build
 
       # ----- SECURITY CHECKS -----
 
