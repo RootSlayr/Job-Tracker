@@ -3,11 +3,33 @@ name: CI/CD Pipeline
 on: [push, pull_request]
 
 jobs:
-  build:
+  build-and-scan:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run a basic script
-        run: echo "CI/CD is working!"
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the app
+        run: npm run build
+
+      # ----- SECURITY CHECKS -----
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high || true
+
+      - name: Semgrep static security scan
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: "p/ci"
+
+      - name: Secret scanning with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
