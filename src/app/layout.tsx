@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { PageTextProvider } from "@/context/PagetextContent";
+import SessionInit from "./sessionInit";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +32,11 @@ export default function RootLayout({
       >
         <Navbar />
         {/* <GooeyNav /> */}
-        <PageTextProvider>
+        <SessionInit>
+          <PageTextProvider>
             {children}
-        </PageTextProvider>
+          </PageTextProvider>
+        </SessionInit>
       </body>
     </html >
   );
