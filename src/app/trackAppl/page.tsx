@@ -1,4 +1,9 @@
+import { usePageText } from '@/context/PagetextContent';
+
+
 export default function TrackApplPage() {
+
+    const pageText = usePageText();
 
     return (
         <div className="p-8 font-mono text-yellow-400 bg-black min-h-screen">
