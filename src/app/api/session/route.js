@@ -1,5 +1,5 @@
 import clientPromise from "./utility";
-import { v4 } from UUID;
+import { v4 } from "uuid";
 
 let sessionCollection;
 

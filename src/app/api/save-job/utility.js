@@ -4,7 +4,7 @@ import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGO_URL;
 const options = {
-    useNewUrlParser: true,
+    // useNewUrlParser: true,
     useUnifiedTopology: true,
     tls: true,
 };
