@@ -51,15 +51,46 @@ export default function HomePage() {
     if (status === 'applied') {
       // setExp(prev => prev + 100); // Big EXP gain for completing quest!
       // setPageText(pageText);
+      const success = handleSavejob()
+
+      if (!success) {
+        alert("Failed to save job")
+      } else {
+        alert("Job saved")
+      }
+
       router.push('/viewResult');
     }
   };
+
 
   const getStatusDisplay = () => {
     if (applicationStatus === 'applied') return { text: 'QUEST COMPLETE!', color: 'text-green-400', bg: 'bg-green-400' };
     if (applicationStatus === 'pending') return { text: 'QUEST ACTIVE', color: 'text-yellow-400', bg: 'bg-yellow-400' };
     return { text: 'NEW QUEST', color: 'text-cyan-400', bg: 'bg-cyan-400' };
   };
+
+
+  const handleSavejob = async () => {
+    const token = localStorage.getItem("session_token");
+    const res = await fetch("/api/save-job", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({ pageText })
+    });
+    return res.ok;
+  }
+
+
+  // const handleDropdown = async (option) => {
+  //   const success = await handleSavejob();
+
+  // }
+
+
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden" style={{
