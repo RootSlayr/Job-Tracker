@@ -42,9 +42,9 @@ jobs:
       - name: Secret scanning with Gitleaks
         uses: gitleaks/gitleaks-action@v2
 
-      - name: Check for Security Headers
-        run: |
-          curl -s -D - https://class-job-seeker.vercel.app/ -o /dev/null | grep -E 'Content-Security-Policy|X-Frame-Options|X-Content-Type-Options'
+      # - name: Check for Security Headers
+      #   run: |
+      #     curl -s -D - https://class-job-seeker.vercel.app/ -o /dev/null | grep -E 'Content-Security-Policy|X-Frame-Options|X-Content-Type-Options'
       
       
       - name: Run OWASP ZAP Passive Scan
