@@ -51,3 +51,4 @@ jobs:
         uses: zaproxy/action-baseline@v0.11.0
         with:
           target: 'https://class-job-seeker.vercel.app'
+          issue_title: '' # not giving github permissions
