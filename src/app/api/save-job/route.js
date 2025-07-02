@@ -18,8 +18,10 @@ export async function POST(req) {
             return new Response(JSON.stringify({ message: "Invalid Token" }), { status: 401 });
         }
 
+        // console.log(await req.json())
         const body = await req.json();
-        const { jobData } = body;
+        // console.log(body)
+        const jobData = body.pageText;
         console.log(jobData);
 
         const collection = db.collection("jobs");
