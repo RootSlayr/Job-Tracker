@@ -22,7 +22,7 @@ export async function POST(req) {
         const body = await req.json();
         // console.log(body)
         const jobData = body.pageText;
-        console.log(jobData);
+        // console.log(jobData);
 
         const collection = db.collection("jobs");
 

@@ -21,7 +21,7 @@ export async function GET(req) {
         const collection = db.collection("jobs");
 
         const savedJobs = await collection.find({ token }).toArray();
-
+        console.log(savedJobs);
         return new Response(JSON.stringify({ savedJobs }), { status: 200 });
     }
     catch (error) {
