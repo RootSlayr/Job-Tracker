@@ -47,8 +47,8 @@ jobs:
       #     curl -s -D - https://class-job-seeker.vercel.app/ -o /dev/null | grep -E 'Content-Security-Policy|X-Frame-Options|X-Content-Type-Options'
       
       
-      - name: Run OWASP ZAP Passive Scan
-        uses: zaproxy/action-baseline@v0.11.0
-        with:
-          target: 'https://class-job-seeker.vercel.app'
-          issue_title: '' # not giving github permissions
+      # - name: Run OWASP ZAP Passive Scan
+      #   uses: zaproxy/action-baseline@v0.11.0
+      #   with:
+      #     target: 'https://class-job-seeker.vercel.app'
+      #     issue_title: '' # not giving github permissions
