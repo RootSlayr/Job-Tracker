@@ -1,5 +1,4 @@
 "use client"
-import { usePageText } from '@/context/PagetextContent';
 import { useEffect, useState } from 'react';
 
 
@@ -11,13 +10,12 @@ export default function TrackApplPage() {
         jobData: {
             title: string;
             company: string;
-            [key: string]: any;
+            [key: string]: unknown;
         } | null;
         savedAt: string;
     };
 
     const [jobs, setJobs] = useState<JobEntry[]>([]);
-    const text = usePageText();
     // console.log(text)
 
     useEffect(() => {

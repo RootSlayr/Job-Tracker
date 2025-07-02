@@ -1,7 +1,7 @@
 "use client"
 import { useEffect } from 'react';
 
-export default function SessionInit({ children }: React.PropsWithChildren<{}>) {
+export default function SessionInit({ children }: React.PropsWithChildren<object>) {
 
     useEffect(() => {
         const existing = localStorage.getItem('session_token');
