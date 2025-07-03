@@ -16,8 +16,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Job Tracker",
-  description: "Track your jobs and interviews with ease",
+  title: "Class: Job seeker - RPG-style job application tracker",
+  description: "Turn your job hunt into an RPG quest. Accept job quests, track applications, and level up your career without the copy-paste hell.",
+  keywords: "job application tracker, job search, RPG job hunting, gamified job search, cover letter generator",
+  openGraph: {
+    title: "Class: Job seeker - Your job hunt RPG",
+    description: "Accept job quests, track applications, generate tailored cover letters. Because job hunting shouldn't feel like grinding.",
+    type: "website",
+    url: "https://class-job-seeker.vercel.app/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Class: Job seeker - RPG job hunting",
+    description: "Turn job applications into RPG quests. Less soul-crushing, more quest-completing.",
+  },
 };
 
 export default function RootLayout({
