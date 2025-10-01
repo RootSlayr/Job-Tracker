@@ -114,12 +114,13 @@ export default function ResumeFixerPage() {
             className="min-h-screen bg-black relative overflow-hidden"
             style={{
                 backgroundImage: `
-          radial-gradient(circle at 25% 25%, rgba(0, 255, 0, 0.05) 0%, transparent 50%),
-          radial-gradient(circle at 75% 75%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
-          linear-gradient(90deg, transparent 50%, rgba(255, 0, 255, 0.02) 50%),
-          linear-gradient(rgba(0, 255, 0, 0.02) 50%, transparent 50%)
-        `,
+        radial-gradient(circle at 25% 25%, rgba(0, 255, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        linear-gradient(90deg, transparent 50%, rgba(255, 0, 255, 0.02) 50%),
+        linear-gradient(rgba(0, 255, 0, 0.02) 50%, transparent 50%)
+      `,
                 backgroundSize: '200px 200px, 250px 250px, 8px 8px, 8px 8px'
+
             }}
         >
             <div className="p-8 font-mono text-green-400 bg-black min-h-screen max-w-4xl mx-auto">
