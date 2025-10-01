@@ -8,6 +8,7 @@ const links = [
     { href: "/", label: "LOBBY", pixel: "📤" },
     { href: "/viewResult", label: "EQUIPMENT ", pixel: "⭐" },
     { href: "/trackAppl", label: "QUEST LOG", pixel: "🎯" },
+    { href: "/resumeFix", label: "RESUME FIXER", pixel: "📝" }
 ];
 
 export default function Navbar() {
