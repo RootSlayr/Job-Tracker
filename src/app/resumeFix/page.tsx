@@ -35,6 +35,13 @@ export default function ResumeFixerPage() {
         initPdfJs();
     }, []);
 
+    useEffect(() => {
+        if (fileText && pageText) {
+            handleRecommendations();
+        }
+    }, [fileText, pageText]);
+
+
     const extractTextFromPdf = async (fileBuffer: ArrayBuffer) => {
         if (!pdfLib) {
             setError('PDF processor not initialized');
@@ -114,6 +121,7 @@ export default function ResumeFixerPage() {
 
     const handleRecommendations = async () => {
         try {
+            console.log(pageText, fileText);
             const parse = await fetch("/api/resume-tailor", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -162,7 +170,6 @@ export default function ResumeFixerPage() {
                         onChange={handleResumeUpload}
                         className="hidden"
                         id="resume-upload"
-                        onClick={handleRecommendations}
                     />
                     <label
                         htmlFor="resume-upload"
