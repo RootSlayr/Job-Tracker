@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect } from "react";
+import { usePageText } from '@/context/PagetextContent';
 import type {
     TextContent,
     TextItem,
@@ -11,11 +12,13 @@ export default function ResumeFixerPage() {
 
     type PdflibModule = typeof import('pdfjs-dist')
 
+    const { pageText } = usePageText();
     const [file, setFile] = useState<File | null>(null);
     const [fileText, setFileText] = useState<string>("");
     const [pdfLib, setPdfLib] = useState<PdflibModule | null>(null);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [recommendation, setRecommendation] = useState<string>("");
 
     useEffect(() => {
         async function initPdfJs() {
@@ -29,7 +32,7 @@ export default function ResumeFixerPage() {
                 console.error("Pdfjslib error in the resume processing page")
             }
         }
-
+        initPdfJs();
     }, []);
 
     const extractTextFromPdf = async (fileBuffer: ArrayBuffer) => {
@@ -109,6 +112,28 @@ export default function ResumeFixerPage() {
         reader.readAsArrayBuffer(file);
     };
 
+    const handleRecommendations = async () => {
+        try {
+            const parse = await fetch("/api/resume-tailor", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    textContent: {
+                        pageText: pageText,
+                        resumeText: fileText
+                    }
+                })
+            });
+
+            const parsed = await parse.json();
+            setRecommendation(parsed.recommendations);
+        } catch (error) {
+            console.error('Error fetching job data:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div
             className="min-h-screen bg-black relative overflow-hidden"
@@ -137,6 +162,7 @@ export default function ResumeFixerPage() {
                         onChange={handleResumeUpload}
                         className="hidden"
                         id="resume-upload"
+                        onClick={handleRecommendations}
                     />
                     <label
                         htmlFor="resume-upload"
